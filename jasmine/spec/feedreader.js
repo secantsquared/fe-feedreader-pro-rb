@@ -11,11 +11,11 @@
 $(function() {
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
+    * feeds definitions, the allFeed  letiable in our application.
     */
     describe("RSS Feeds", function() {
       /* This is our first test - it tests to make sure that the
-         * allFeeds variable has been defined and that it is not
+         * allFeed  letiable has been defined and that it is not
          * empty. Experiment with this before you get started on
          * the rest of this project. What happens when you change
          * allFeeds in app.js to be an empty array and refresh the
@@ -51,9 +51,9 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
     describe("The menu", function() {
-      var body = $("body");
-      var callback = jasmine.createSpy("body", "toggleClass");
-      var menuIconVisible = $(".menu-icon-list:visible");
+      let body = $("body");
+      let callback = jasmine.createSpy("body", "toggleClass");
+      let menuIconVisible = $(".menu-icon-list:visible");
       /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
@@ -80,11 +80,7 @@ $(function() {
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
       beforeEach(function(done) {
-        var id, 
-        var cb;
-        var feed = $('.feed');
-        var entry = $('.entry');
-        loadFeed(id, cb);
+        loadFeed(0);
         done();
       });
     /* TODO: Write a test that ensures when the loadFeed
@@ -92,26 +88,36 @@ $(function() {
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asy`1`nchronous done() func*/
-      it('contain at least one single .entry element within .feed container', function() {
-        expect(feed.html()).not.toBeNull();
-        expect(feed.html()).toContain('.entry');
+      it('contain at least one single .entry element within .feed container', function(done) {
+        expect($('.feed')).not.toBeNull();
+        expect($('div.feed a.entry-link article.entry')).not.toBeNull();
+        expect($('div.feed a.entry-link article.entry')).toBeDefined();
         done();
       });
     });
    
     
     /* TODO: Write a new test suite named "New Feed Selection" */
-   /*  describe('New Feed Selection', function() {
-     beforeEach(function(done) {
-       setTimeout(function() {
-
-        }, 2500);
-      }); */
-    
+    describe('New Feed Selection', function() {
+      let stateOne;
+      let stateTwo;
+      beforeEach(function(done) {
+        loadFeed(0);
+        stateOne = $('h1.header-title')[0].innerText;
+        done();
+      });
+      afterEach(function(done) {
+        loadFeed(1);
+        stateTwo = $('h1.header-title')[0].innerText;
+        done();
+      });
     /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-    
-    // });
+        it ('changes content when new feed is loaded', function(done) {
+          expect(stateOne).not.toEqual(stateTwo);
+          done();
+        });
     });
+});
