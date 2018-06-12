@@ -71,9 +71,9 @@ $(function () {
         expect(body.hasClass("menu-hidden")).toBe(true);
       } else {
         expect(body.hasClass("menu-hidden")).toBe(false);
-        }
-      });
+      }
     });
+  });
   /* TODO: Write a new test suite named "Initial Entries" */
   describe('Initial Entries', function () {
     beforeEach(function (done) {
